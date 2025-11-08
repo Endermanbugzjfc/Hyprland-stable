@@ -1,0 +1,32 @@
+# Written by ChatGPT:
+
+name: Update Stable Branch
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs every 24 hours at midnight
+  # Modified by Endermanbugzjfc:
+  dispatch_workflow:
+  # End modification.
+
+jobs:
+  update-stable:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+      # Modified by Endermanbugzjfc:
+      - uses: actions/checkout@v5
+        with:
+          repository: hyprwm/Hyprland
+      # End modification.
+      - name: Fetch latest release tag
+        run: |
+          git fetch --tags
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+          echo "Latest stable tag is: $LATEST_TAG"
+          git checkout tags/$LATEST_TAG -b stable
+
+      - name: Force push stable branch
+        run: |
+          git push origin stable --force

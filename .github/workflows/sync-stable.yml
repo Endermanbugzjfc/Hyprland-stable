@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs every 24 hours at midnight
   # Modified by Endermanbugzjfc:
-  dispatch_workflow:
+  workflow_dispatch:
   # End modification.
 
 jobs:

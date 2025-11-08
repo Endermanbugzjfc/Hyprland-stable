@@ -28,5 +28,8 @@ jobs:
           git checkout tags/$LATEST_TAG -b stable
 
       - name: Force push stable branch
+        # Modified by Endermanbugzjfc:
         run: |
-          git push origin stable --force
+          git remote add push https://github.com/Endermanbugzjfc/Hyprland-stable
+          git push --set-upstream push stable --force
+        # End modification.
